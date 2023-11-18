@@ -20,4 +20,6 @@ samples, guidance on mobile development, and a full API reference.
 dart pub run build_runner build
 
 # flutter --- retrofit should use this command
+# json -- model
 flutter pub run build_runner build
+
