@@ -5,6 +5,7 @@ import 'package:flutter_architecture/model/User.dart';
 import 'package:flutter_architecture/ui/Other.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
 import 'package:get/get.dart';
+import 'package:mmkv/mmkv.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -16,6 +17,8 @@ class Home extends StatelessWidget {
 
     // test json serial
     testJsonSerial();
+    // test key-value storage
+    testKeyValueStorage();
 
     return Scaffold(
       // 使用Obx(()=>每当改变计数时，就更新Text()。
@@ -57,5 +60,13 @@ class Home extends StatelessWidget {
     User decodeUser = User.fromJson(jsonDecode(jsonStr));
     decodeUser.name = "change ${decodeUser.name}";
     debugPrint("decodeUser = $decodeUser");
+  }
+
+  void testKeyValueStorage() {
+    var mmkv = MMKV.defaultMMKV();
+    mmkv.encodeString("testStr", "testStr_value");
+
+    var decodeStr = mmkv.decodeString("testStr");
+    debugPrint("test mmkv decodeStr = $decodeStr");
   }
 }

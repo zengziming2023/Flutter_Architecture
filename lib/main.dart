@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mmkv/mmkv.dart';
 import 'ui/Home.dart';
 
-void main() {
+void main() async {
+  await initMMKV();
   // runApp(const MyApp());
   runApp(const GetMaterialApp(home: Home()));
+}
+
+Future<void> initMMKV() async {
+  var rootPath = await MMKV.initialize();
+  debugPrint('MMKV for flutter with rootDir = $rootPath');
 }
 
 class MyApp extends StatelessWidget {
