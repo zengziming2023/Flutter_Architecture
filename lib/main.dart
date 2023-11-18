@@ -4,7 +4,7 @@ import 'ui/Home.dart';
 
 void main() {
   // runApp(const MyApp());
-  runApp(GetMaterialApp(home: Home()));
+  runApp(const GetMaterialApp(home: Home()));
 }
 
 class MyApp extends StatelessWidget {
