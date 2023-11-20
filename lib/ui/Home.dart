@@ -14,40 +14,43 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     // 使用Get.put()实例化你的类，使其对当下的所有子路由可用。
     final homeViewModel = Get.put(HomeViewModel());
-
     // test json serial
     testJsonSerial();
     // test key-value storage
     testKeyValueStorage();
 
-    return Scaffold(
-      // 使用Obx(()=>每当改变计数时，就更新Text()。
-      appBar: AppBar(
-        title: Obx(() => Text("Clicks : ${homeViewModel.count}")),
-      ),
+    return GetBuilder<HomeViewModel>(
+        init: homeViewModel,
+        builder: (controller) {
+          return Scaffold(
+            // 使用Obx(()=>每当改变计数时，就更新Text()。
+            appBar: AppBar(
+              title: Obx(() => Text("Clicks : ${controller.count}")),
+            ),
 
-      // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Go to other."),
-          onPressed: () => {Get.to(const Other())},
-        ),
-      ),
+            // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
+            body: Center(
+              child: ElevatedButton(
+                child: const Text("Go to other."),
+                onPressed: () => {Get.to(const Other())},
+              ),
+            ),
 
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          homeViewModel.increment();
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                homeViewModel.increment();
 
-          homeViewModel
-              .getTasks()
-              .then((value) => debugPrint("value = $value"))
-              .catchError((error) {
-            debugPrint("error xxx = $error");
-          });
-        },
-      ),
-    );
+                homeViewModel
+                    .getTasks()
+                    .then((value) => debugPrint("value = $value"))
+                    .catchError((error) {
+                  debugPrint("error xxx = $error");
+                });
+              },
+            ),
+          );
+        });
   }
 
   void testJsonSerial() {

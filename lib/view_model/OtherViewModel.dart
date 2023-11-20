@@ -1,7 +1,4 @@
+import 'package:flutter_architecture/base/BaseViewModel.dart';
 
-import 'package:get/get.dart';
-
-class OtherViewModel extends GetxController{
-
-
+class OtherViewModel extends BaseViewModel{
 }

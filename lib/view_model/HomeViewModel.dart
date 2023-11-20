@@ -1,8 +1,9 @@
+import 'package:flutter_architecture/base/BaseViewModel.dart';
+import 'package:flutter_architecture/model/Task.dart';
+import 'package:flutter_architecture/network/ApiService.dart';
 import 'package:get/get.dart';
-import '../network/ApiService.dart';
-import '../model/Task.dart';
 
-class HomeViewModel extends GetxController {
+class HomeViewModel extends BaseViewModel {
   var count = 0.obs;
 
   increment() => count++;
