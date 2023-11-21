@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture/model/User.dart';
 import 'package:flutter_architecture/ui/Other.dart';
@@ -30,9 +31,17 @@ class Home extends StatelessWidget {
 
             // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
             body: Center(
-              child: ElevatedButton(
-                child: const Text("Go to other."),
-                onPressed: () => {Get.to(const Other())},
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    child: const Text("Go to other."),
+                    onPressed: () => {Get.to(const Other())},
+                  ),
+                  CachedNetworkImage(imageUrl: "https://picsum.photos/250?image=9",
+                  placeholder: (context, url) => const CircularProgressIndicator(),),
+                  Image.asset('assets/images/test.jpg')
+
+                ],
               ),
             ),
 
