@@ -2,65 +2,15 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture/base/BaseStatelessWidget.dart';
 import 'package:flutter_architecture/model/User.dart';
 import 'package:flutter_architecture/ui/Other.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
 import 'package:get/get.dart';
 import 'package:mmkv/mmkv.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // 使用Get.put()实例化你的类，使其对当下的所有子路由可用。
-    final homeViewModel = Get.put(HomeViewModel());
-    // test json serial
-    testJsonSerial();
-    // test key-value storage
-    testKeyValueStorage();
-
-    return GetBuilder<HomeViewModel>(
-        init: homeViewModel,
-        builder: (controller) {
-          return Scaffold(
-            // 使用Obx(()=>每当改变计数时，就更新Text()。
-            appBar: AppBar(
-              title: Obx(() => Text("Clicks : ${controller.count}")),
-            ),
-
-            // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
-            body: Center(
-              child: Column(
-                children: [
-                  ElevatedButton(
-                    child: const Text("Go to other."),
-                    onPressed: () => {Get.to(const Other())},
-                  ),
-                  CachedNetworkImage(imageUrl: "https://picsum.photos/250?image=9",
-                  placeholder: (context, url) => const CircularProgressIndicator(),),
-                  Image.asset('assets/images/test.jpg')
-
-                ],
-              ),
-            ),
-
-            floatingActionButton: FloatingActionButton(
-              child: const Icon(Icons.add),
-              onPressed: () {
-                homeViewModel.increment();
-
-                homeViewModel
-                    .getTasks()
-                    .then((value) => debugPrint("value = $value"))
-                    .catchError((error) {
-                  debugPrint("error xxx = $error");
-                });
-              },
-            ),
-          );
-        });
-  }
+class Home extends BaseStatelessWidget<HomeViewModel> {
+  Home({super.key});
 
   void testJsonSerial() {
     // test json serial
@@ -80,5 +30,50 @@ class Home extends StatelessWidget {
 
     var decodeStr = mmkv.decodeString("testStr");
     debugPrint("test mmkv decodeStr = $decodeStr");
+  }
+
+  @override
+  GetControllerBuilder<HomeViewModel> getControllerBuilder(
+      HomeViewModel viewModel) {
+    return (viewModel) {
+      return Scaffold(
+        // 使用Obx(()=>每当改变计数时，就更新Text()。
+        appBar: AppBar(
+          title: Obx(() => Text("Clicks : ${viewModel.count}")),
+        ),
+
+        // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
+        body: Center(
+          child: Column(
+            children: [
+              ElevatedButton(
+                child: const Text("Go to other."),
+                onPressed: () => {Get.to(Other())},
+              ),
+              CachedNetworkImage(
+                imageUrl: "https://picsum.photos/250?image=9",
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+              ),
+              Image.asset('assets/images/test.jpg')
+            ],
+          ),
+        ),
+
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            viewModel.increment();
+
+            viewModel
+                .getTasks()
+                .then((value) => debugPrint("value = $value"))
+                .catchError((error) {
+              debugPrint("error xxx = $error");
+            });
+          },
+        ),
+      );
+    };
   }
 }

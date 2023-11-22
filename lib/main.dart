@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture/view_model/HomeViewModel.dart';
+import 'package:flutter_architecture/view_model/OtherViewModel.dart';
 import 'package:get/get.dart';
 import 'package:mmkv/mmkv.dart';
 import 'ui/Home.dart';
 
 void main() async {
   await initMMKV();
+  initViewModel();
   // runApp(const MyApp());
-  runApp(const GetMaterialApp(home: Home()));
+  runApp(GetMaterialApp(home: Home()));
+}
+
+void initViewModel() {
+  Get.lazyPut(() => HomeViewModel());
+  Get.lazyPut(() => OtherViewModel());
 }
 
 Future<void> initMMKV() async {
