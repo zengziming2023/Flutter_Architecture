@@ -63,7 +63,12 @@ class Home extends BaseStatelessWidget<HomeViewModel> {
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
               ),
-              Image.asset('assets/images/test.jpg')
+              Image.asset(
+                'assets/images/test.jpg',
+                width: 200,
+                height: null,
+                fit: BoxFit.cover,
+              )
             ],
           ),
         ),
