@@ -14,9 +14,7 @@ class ApiService {
 
   // 获得单例
   static ApiService getInstance() {
-    if (_instance == null) {
-      _instance = ApiService._();
-    }
+    _instance ??= ApiService._();
     return _instance!;
   }
 

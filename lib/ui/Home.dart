@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_architecture/base/BaseStatelessWidget.dart';
 import 'package:flutter_architecture/model/User.dart';
 import 'package:flutter_architecture/ui/Other.dart';
+import 'package:flutter_architecture/utils/Singleton.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
 import 'package:get/get.dart';
 import 'package:mmkv/mmkv.dart';
@@ -35,11 +36,18 @@ class Home extends BaseStatelessWidget<HomeViewModel> {
   @override
   GetControllerBuilder<HomeViewModel> getControllerBuilder(
       HomeViewModel viewModel) {
+    testJsonSerial();
+    testKeyValueStorage();
+    Singleton().doSomething();
+
     return (viewModel) {
       return Scaffold(
         // 使用Obx(()=>每当改变计数时，就更新Text()。
         appBar: AppBar(
-          title: Obx(() => Text("Clicks : ${viewModel.count}")),
+          title: Obx(() {
+            debugPrint("count change ${viewModel.count}");
+            return Text("Clicks : ${viewModel.count}");
+          }),
         ),
 
         // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
