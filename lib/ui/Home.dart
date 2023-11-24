@@ -56,7 +56,7 @@ class Home extends BaseStatelessWidget<HomeViewModel> {
             children: [
               ElevatedButton(
                 child: const Text("Go to other."),
-                onPressed: () => {Get.to(Other())},
+                onPressed: () => {Get.to(() => Other())},
               ),
               CachedNetworkImage(
                 imageUrl: "https://picsum.photos/250?image=9",
