@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_architecture/base/BaseStatelessWidget.dart';
 import 'package:flutter_architecture/model/User.dart';
 import 'package:flutter_architecture/ui/Other.dart';
+import 'package:flutter_architecture/ui/Second.dart';
 import 'package:flutter_architecture/utils/Singleton.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
 import 'package:get/get.dart';
@@ -56,7 +57,7 @@ class Home extends BaseStatelessWidget<HomeViewModel> {
             children: [
               ElevatedButton(
                 child: const Text("Go to other."),
-                onPressed: () => {Get.to(() => Other())},
+                onPressed: () => {Get.to(() => Second())},
               ),
               CachedNetworkImage(
                 imageUrl: "https://picsum.photos/250?image=9",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
 import 'package:flutter_architecture/view_model/OtherViewModel.dart';
+import 'package:flutter_architecture/view_model/second_view_model.dart';
 import 'package:get/get.dart';
 import 'package:mmkv/mmkv.dart';
 import 'ui/Home.dart';
@@ -13,8 +14,9 @@ void main() async {
 }
 
 void initViewModel() {
-  Get.lazyPut(() => HomeViewModel());
-  Get.lazyPut(() => OtherViewModel());
+  Get.lazyPut(() => HomeViewModel(), fenix: true);
+  Get.lazyPut(() => OtherViewModel(), fenix: true);
+  Get.lazyPut(() => SecondViewModel(), fenix: true);
 }
 
 Future<void> initMMKV() async {
