@@ -50,6 +50,15 @@ dependencies:
   #network image
   cached_network_image: ^3.3.0
 
+  #constrainlayout
+#  flutter_constraintlayout:
+#    git:
+#      url: 'https://github.com/hackware1993/Flutter-ConstraintLayout.git'
+#      ref: 'v1.7.0-stable'
+
+  flutter_constraintlayout: ^1.7.0-stable
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
