@@ -16,6 +16,7 @@ class Second extends BaseStatelessWidget<SecondViewModel> {
       SecondViewModel viewModel) {
     return (viewModel) {
       final idCenter = ConstraintId("center");
+      final idTestText = ConstraintId("testText");
 
       return Scaffold(
         appBar: AppBar(
@@ -34,8 +35,7 @@ class Second extends BaseStatelessWidget<SecondViewModel> {
                     child: InkWell(
                       child: const Text(
                         "test text test text test text..",
-                        style: TextStyle(color: Colors.blue,
-                        fontSize: 18),
+                        style: TextStyle(color: Colors.blue, fontSize: 18),
                       ),
                       onTap: () {
                         debugPrint("test padding...");
@@ -43,11 +43,27 @@ class Second extends BaseStatelessWidget<SecondViewModel> {
                       },
                     ))
                 .applyConstraint(
+                    id: idTestText,
                     width: wrapContent,
                     top: idCenter.bottom,
                     left: idCenter.left,
                     margin: const EdgeInsets.only(top: 20),
                     clickPadding: const EdgeInsets.all(20)),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(color: Colors.green),
+              child: InkWell(
+                child: const Text(
+                  "show dialog",
+                  style: TextStyle(fontSize: 18, color: Colors.red),
+                ),
+                onTap: () async => await showTextDialog(),
+              ),
+            ).applyConstraint(
+                left: idTestText.left,
+                top: idTestText.bottom,
+                margin: const EdgeInsets.only(top: 18),
+                clickPadding: const EdgeInsets.all(18))
             // centerTo: parent)
           ],
         ),
@@ -60,15 +76,43 @@ class Second extends BaseStatelessWidget<SecondViewModel> {
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: const BoxDecoration(color: Colors.red),
-        child: Text("Second page..${homeViewModel.count}", style: const TextStyle(
-          fontSize: 18, color: Colors.white
-        ),),
+        child: Text(
+          "Second page..${homeViewModel.count}",
+          style: const TextStyle(fontSize: 18, color: Colors.white),
+        ),
       ),
-      onTap: (){
+      onTap: () {
         homeViewModel.increment();
         // need to manual call update when homeViewModel data update to notify SecondPage update ui.
         viewmodel.update();
       },
     );
+  }
+
+  showTextDialog() async {
+    debugPrint("show dialog");
+    // Get.dialog(const Center(
+    //   child: Text(
+    //     "text dialog",
+    //     style: TextStyle(
+    //       fontSize: 24,
+    //     ),
+    //   ),
+    // ));
+
+    await Get.defaultDialog(
+        title: "dialog title",
+        content: const Text("dialog content"),
+        textConfirm: "confirm",
+        textCancel: "cancel",
+        onConfirm: () {
+          debugPrint('on confirm : ${Get.isOverlaysOpen}');
+          Get.back();
+        },
+        onCancel: () {
+          debugPrint("on cancel click.");
+          // Get.back(result: false, closeOverlays: true, canPop: false);
+        },
+        barrierDismissible: true);
   }
 }
