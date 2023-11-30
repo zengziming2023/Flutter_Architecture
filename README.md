@@ -23,3 +23,7 @@ dart pub run build_runner build
 # json -- model
 flutter pub run build_runner build
 
+
+#ios 
+if build ios failed, try to delete Profile.lock, and try again.
+
