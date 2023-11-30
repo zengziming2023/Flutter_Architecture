@@ -17,6 +17,7 @@ class Second extends BaseStatelessWidget<SecondViewModel> {
     return (viewModel) {
       final idCenter = ConstraintId("center");
       final idTestText = ConstraintId("testText");
+      final idShowDialog = ConstraintId("showDialog");
 
       return Scaffold(
         appBar: AppBar(
@@ -60,8 +61,24 @@ class Second extends BaseStatelessWidget<SecondViewModel> {
                 onTap: () async => await showTextDialog(),
               ),
             ).applyConstraint(
+                id: idShowDialog,
                 left: idTestText.left,
                 top: idTestText.bottom,
+                margin: const EdgeInsets.only(top: 18),
+                clickPadding: const EdgeInsets.all(18)),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(color: Colors.green),
+              child: InkWell(
+                child: const Text(
+                  "show toast",
+                  style: TextStyle(fontSize: 18, color: Colors.red),
+                ),
+                onTap: () => showSnakeBar("snakbar test"),
+              ),
+            ).applyConstraint(
+                left: idShowDialog.left,
+                top: idShowDialog.bottom,
                 margin: const EdgeInsets.only(top: 18),
                 clickPadding: const EdgeInsets.all(18))
             // centerTo: parent)
@@ -114,5 +131,12 @@ class Second extends BaseStatelessWidget<SecondViewModel> {
           // Get.back(result: false, closeOverlays: true, canPop: false);
         },
         barrierDismissible: true);
+  }
+
+  showSnakeBar(String content) {
+    Get.showSnackbar(GetSnackBar(
+      message: content,
+      duration: const Duration(milliseconds: 2000),
+    ));
   }
 }
