@@ -1,8 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
 import 'package:flutter_architecture/view_model/OtherViewModel.dart';
 import 'package:flutter_architecture/view_model/listview_view_model.dart';
 import 'package:flutter_architecture/view_model/second_view_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mmkv/mmkv.dart';
 import 'ui/Home.dart';
@@ -11,7 +13,12 @@ void main() async {
   await initMMKV();
   initViewModel();
   // runApp(const MyApp());
-  runApp(GetMaterialApp(home: Home()));
+
+  runApp(ScreenUtilInit(
+      designSize: const Size(375, 640),
+      builder: (context, child) {
+        return GetMaterialApp(home: Home());
+      }));
 }
 
 void initViewModel() {

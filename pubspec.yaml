@@ -58,6 +58,9 @@ dependencies:
 
   flutter_constraintlayout: ^1.7.0-stable
 
+  # add flutter_screenutil
+  flutter_screenutil: ^5.9.0
+
 
 dev_dependencies:
   flutter_test:

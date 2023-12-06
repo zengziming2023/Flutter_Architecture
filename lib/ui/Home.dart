@@ -8,6 +8,7 @@ import 'package:flutter_architecture/ui/Other.dart';
 import 'package:flutter_architecture/ui/Second.dart';
 import 'package:flutter_architecture/utils/Singleton.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mmkv/mmkv.dart';
 
@@ -41,13 +42,22 @@ class Home extends BaseStatelessWidget<HomeViewModel> {
     testKeyValueStorage();
     Singleton().doSomething();
 
+    // 使用MediaQuery获取屏幕的宽度和高度
+    var mediaQueryData = MediaQuery.of(Get.context!);
+    double screenWidth = mediaQueryData.size.width;
+    double screenHeight = mediaQueryData.size.height;
+    double devicePixelRatio = mediaQueryData.devicePixelRatio;
+
     return (viewModel) {
       return Scaffold(
         // 使用Obx(()=>每当改变计数时，就更新Text()。
         appBar: AppBar(
           title: Obx(() {
             debugPrint("count change ${viewModel.count}");
-            return Text("Clicks : ${viewModel.count}");
+            return Text(
+              "Clicks : ${viewModel.count}",
+              style: TextStyle(fontSize: 18.sp),
+            );
           }),
         ),
 
@@ -56,7 +66,10 @@ class Home extends BaseStatelessWidget<HomeViewModel> {
           child: Column(
             children: [
               ElevatedButton(
-                child: const Text("Go to other."),
+                child: Text(
+                  "Go to other.",
+                  style: TextStyle(fontSize: 18.sp),
+                ),
                 onPressed: () => {Get.to(() => Other())},
               ),
               ElevatedButton(
@@ -70,10 +83,19 @@ class Home extends BaseStatelessWidget<HomeViewModel> {
               ),
               Image.asset(
                 'assets/images/test.jpg',
-                width: 200,
+                width: 200.w,
                 height: null,
                 fit: BoxFit.cover,
-              )
+              ),
+              Container(
+                  decoration: const BoxDecoration(color: Colors.blue),
+                  width: 375.w,
+                  height: 100.w,
+                  child: Text("window logicWidth = $screenWidth \n"
+                      "window logicHeight = $screenHeight \n"
+                      "devicePixelRatio = $devicePixelRatio \n"
+                      "screenWidth = ${screenWidth * devicePixelRatio}\n"
+                      "screenHeight = ${screenHeight * devicePixelRatio}"))
             ],
           ),
         ),
