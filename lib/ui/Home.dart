@@ -6,6 +6,7 @@ import 'package:flutter_architecture/base/BaseStatelessWidget.dart';
 import 'package:flutter_architecture/model/User.dart';
 import 'package:flutter_architecture/ui/Other.dart';
 import 'package:flutter_architecture/ui/Second.dart';
+import 'package:flutter_architecture/ui/view_page_demo.dart';
 import 'package:flutter_architecture/utils/Singleton.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -95,7 +96,14 @@ class Home extends BaseStatelessWidget<HomeViewModel> {
                       "window logicHeight = $screenHeight \n"
                       "devicePixelRatio = $devicePixelRatio \n"
                       "screenWidth = ${screenWidth * devicePixelRatio}\n"
-                      "screenHeight = ${screenHeight * devicePixelRatio}"))
+                      "screenHeight = ${screenHeight * devicePixelRatio}")),
+              InkWell(
+                child: Text(
+                  "test view page",
+                  style: TextStyle(fontSize: 18.sp),
+                ),
+                onTap: () => Get.to(() => ViewPageDemo()),
+              )
             ],
           ),
         ),
