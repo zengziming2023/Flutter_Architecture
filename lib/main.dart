@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture/ui/Home.dart';
 import 'package:flutter_architecture/view_model/HomeViewModel.dart';
 import 'package:flutter_architecture/view_model/OtherViewModel.dart';
 import 'package:flutter_architecture/view_model/listview_view_model.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_architecture/view_model/view_page_demo_view_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mmkv/mmkv.dart';
-import 'ui/Home.dart';
 
 void main() async {
   await initMMKV();
